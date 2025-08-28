@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CartItemController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\Api\SubCategoryController;
 
 
 
@@ -15,6 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('carts', CartController::class);
 Route::apiResource('cart-items', CartItemController::class);
+Route::apiResource('subcategories', SubCategoryController::class);
 
 
 // Protected routes (need Sanctum token)
