@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\SubCategoryController;
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('carts', CartController::class);
 Route::apiResource('cart-items', CartItemController::class);
@@ -22,7 +23,7 @@ Route::apiResource('subcategories', SubCategoryController::class);
 
 // Protected routes (need Sanctum token)
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
+    
     Route::get('/profile', [AuthController::class, 'profile']);
 
     // User CRUD
