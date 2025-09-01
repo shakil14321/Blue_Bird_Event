@@ -25,7 +25,8 @@ Route::apiResource('carts', CartController::class);
 Route::apiResource('cart-items', CartItemController::class);
 Route::apiResource('subcategories', SubCategoryController::class);
 Route::apiResource('favorites', FavoriteController::class);
-Route::apiResource('media', MediaController::class);
+Route::post('/media', [MediaController::class, 'store']);          // Upload media
+Route::get('/media/{type}/{id}', [MediaController::class, 'index']); // Get media by model
 Route::apiResource('notifications', NotificationController::class);
 
 Route::prefix('conversations')->group(function () {

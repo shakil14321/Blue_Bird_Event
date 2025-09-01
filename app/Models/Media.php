@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model
 {
-    use HasFactory;
+   use HasFactory;
 
     protected $fillable = ['mediaable_id', 'mediaable_type', 'media_type', 'url'];
 
@@ -15,4 +15,6 @@ class Media extends Model
     {
         return $this->morphTo();
     }
+
+    
 }

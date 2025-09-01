@@ -8,30 +8,29 @@ use App\Http\Controllers\Controller;
 
 class MediaController extends Controller
 {
-    public function index()
-    {
-        return Media::all();
-    }
-
+    // Upload and attach media
     public function store(Request $request)
     {
         $request->validate([
-            'mediaable_id' => 'required|integer',
+            'mediaable_id'   => 'required|integer',
             'mediaable_type' => 'required|string',
-            'media_type' => 'required|string',
-            'url' => 'required|string'
+            'media_type'     => 'required|string',
+            'url'            => 'required|string',
         ]);
 
-        return Media::create($request->all());
+        $media = Media::create($request->all());
+
+        return response()->json(['media' => $media], 201);
     }
 
-    public function show($id)
+    // Get all media for a model
+    public function index($type, $id)
     {
-        return Media::findOrFail($id);
-    }
+        $media = Media::where('mediaable_type', $type)
+                      ->where('mediaable_id', $id)
+                      ->get();
 
-    public function destroy($id)
-    {
-        return Media::destroy($id);
+        return response()->json($media);
     }
+    
 }
