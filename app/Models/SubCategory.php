@@ -9,6 +9,8 @@ class SubCategory extends Model
 {
     use HasFactory;
 
+     protected $table = 'subcategories';
+
     protected $fillable = ['category_id', 'name', 'description'];
 
     // A subcategory belongs to a category
@@ -16,4 +18,10 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
+    
 }
