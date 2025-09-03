@@ -1,7 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
+
+
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -15,3 +21,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+
+
+// Route::middleware(['auth'])->prefix('admin')->group(function () {
+    
+// });
+
+Route::get('/profile', [AuthController::class, 'profile']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+
+
+Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+Route::resource('subcategories', SubCategoryController::class);
+
+Route::resource('users', UserController::class);

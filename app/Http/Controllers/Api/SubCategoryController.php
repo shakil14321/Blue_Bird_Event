@@ -30,6 +30,16 @@ class SubCategoryController extends Controller
     public function show($id)
     {
         return SubCategory::with('category')->findOrFail($id);
+         // Find related subcategories from the same category
+        $related = SubCategory::where('category_id', $subcategory->category_id)
+            ->where('id', '!=', $subcategory->id)
+            ->limit(5) // limit to 5 suggestions
+            ->get();
+
+        return response()->json([
+            'subcategory' => $subcategory,
+            'related' => $related
+        ]);
     }
 
     // Update subcategory
