@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('backend') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset('backend') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" /> 
 
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/vendor/libs/apex-charts/apex-charts.css" />
 
@@ -183,7 +183,6 @@
               </ul>
             </li>
 
-
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -314,7 +313,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      {{-- <a class="dropdown-item" href="{{ route('logout') }}"> --}}
+                      {{-- <a class="dropdown-item" href="{{ route('logout') }}"> --}} 
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
