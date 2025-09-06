@@ -57,8 +57,10 @@
 
 
   <body>
-  {{-- @include('layouts.navigation') --}}
+
   
+  {{-- @include('layouts.app') --}}
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -135,7 +137,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+              <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -304,7 +306,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      {{-- <a class="dropdown-item" href="{{ route('profile') }}"> --}}
+                      <a class="dropdown-item" href="{{ route('profile') }}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -313,7 +315,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      {{-- <a class="dropdown-item" href="{{ route('logout') }}"> --}} 
+                      <a class="dropdown-item" href="{{ route('logout') }}"> 
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -395,9 +397,6 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
   </body>
 </html>
 

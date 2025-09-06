@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return view('dashboard');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -22,15 +22,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
 
+// Add names to routes so you can use route('profile') in Blade
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-// Route::middleware(['auth'])->prefix('admin')->group(function () {
-    
-// });
-
-Route::get('/profile', [AuthController::class, 'profile']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
+
 
 
 

@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Quotation extends Model
 {
     protected $fillable = [
-        'cart_id','user_id','address','request_details','response_details','admin_id'
+        'cart_id',
+        'user_id',
+        'address',
+        'request_details',
+        'response_details',
+        'admin_id'
     ];
     public function cart(){ return $this->belongsTo(Cart::class); }
     public function user(){ return $this->belongsTo(User::class); }

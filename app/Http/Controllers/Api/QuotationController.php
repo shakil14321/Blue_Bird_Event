@@ -9,7 +9,11 @@ use App\Http\Controllers\Controller;
 
 class QuotationController extends Controller
 {
-    // 1. User: List all their quotations / Admin: all quotations
+    /**
+     * List quotations
+     * - Admin: all quotations
+     * - User: only their quotations
+     */
     public function index(Request $request)
     {
         $query = Quotation::with(['cart.items.subcategory', 'user', 'admin'])->latest();
@@ -21,12 +25,14 @@ class QuotationController extends Controller
         return $query->paginate(20);
     }
 
-    // 2. User: Create a quotation request
+    /**
+     * Create a quotation request (User only)
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
             'cart_id' => 'required|exists:carts,id',
-            'address' => 'required|string',
+            'address' => 'required|string|max:255',
             'request_details' => 'nullable|string'
         ]);
 
@@ -36,8 +42,12 @@ class QuotationController extends Controller
         abort_unless($cart->user_id === $request->user()->id, 403, 'Unauthorized action.');
 
         if ($cart->items->isEmpty()) {
-            return response()->json(['message' => 'Cart has no items. Add subcategories first.'], 422);
+            return response()->json([
+                'message' => 'Cart has no items. Add subcategories first.'
+            ], 422);
         }
+
+        // Prevent duplicate quotation for same cart
 
         $quotation = Quotation::create([
             'cart_id' => $cart->id,
@@ -52,10 +62,13 @@ class QuotationController extends Controller
         );
     }
 
-    // 3. Show a single quotation
+    /**
+     * Show a single quotation
+     * - Admin: any quotation
+     * - User: only their own quotation
+     */
     public function show(Request $request, Quotation $quotation)
     {
-        // Restrict access: user sees only their own, admin sees all
         if ($request->user()->role !== 'admin') {
             abort_unless($quotation->user_id === $request->user()->id, 403, 'Unauthorized action.');
         }
@@ -63,7 +76,9 @@ class QuotationController extends Controller
         return $quotation->load('cart.items.subcategory', 'user', 'admin');
     }
 
-    // 4. Admin: Respond to quotation
+    /**
+     * Respond to quotation (Admin only)
+     */
     public function respond(Request $request, Quotation $quotation)
     {
         abort_unless($request->user()->role === 'admin', 403, 'Only admin can respond.');

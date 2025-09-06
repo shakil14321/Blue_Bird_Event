@@ -18,8 +18,8 @@ class CartItem extends Model
     }
 
     // A cart item belongs to a subcategory
-    // public function subcategory()
-    // {
-    //     return $this->belongsTo(SubCategory::class);
-    // }
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
 }

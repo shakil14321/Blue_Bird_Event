@@ -33,13 +33,7 @@ Route::apiResource('notifications', NotificationController::class);
 Route::get('/search', [SearchController::class, 'search']);
 
 
-// User: list and create quotations
-Route::get('/quotations', [QuotationController::class, 'index']);
-Route::post('/quotations', [QuotationController::class, 'store']);
-// Show a specific quotation
-Route::get('/quotations/{quotation}', [QuotationController::class, 'show']);
-// Admin: respond to quotation
-Route::post('/quotations/{quotation}/respond', [QuotationController::class, 'respond']);
+
 
 
 Route::post('otps', [OtpController::class, 'store']);        // Generate OTP
@@ -60,7 +54,15 @@ Route::prefix('conversations')->group(function () {
 // Protected routes (need Sanctum token)
 Route::middleware('auth:sanctum')->group(function () {
     
-   
+   // User: list and create quotations
+Route::get('/quotations', [QuotationController::class, 'index']);
+Route::post('/quotations', [QuotationController::class, 'store']);
+
+// Show a specific quotation
+Route::get('/quotations/{quotation}', [QuotationController::class, 'show']);
+
+// Admin: respond to quotation (PATCH instead of POST)
+Route::patch('/quotations/{quotation}/respond', [QuotationController::class, 'respond']);
     // User CRUD
     Route::apiResource('users', UserController::class);
 });
